@@ -16,7 +16,7 @@ this is complete design pverview
     
     VPS (single node)
     ├─ preparing (hardening , implement)
-    ├─ nginx (reverse proxy, TLS)
+    ├─ treafik (reverse proxy, TLS)
     ├─ docker / docker-compose
     ├─ odoo (docker container)
     ├─ postgresql (docker container or managed service)
