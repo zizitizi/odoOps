@@ -1,0 +1,36 @@
+# dynamic config for Traefik v3
+http:
+  routers:
+    traefik-dashboard:
+      rule: "Host(`tr.tar.ir`)"
+      entryPoints: ["websecure"]
+      service: "api@internal"
+      priority: 100
+      tls: {}   # enables TLS for this router, certificate provided below
+
+
+    wordpress-router:         
+      rule: "Host(`tar.ir`)" 
+      entryPoints: ["websecure"]
+      service: "wordpress-service"
+      tls: {}                    
+
+
+
+
+  services:
+    wordpress-service:          
+      loadBalancer:
+        servers:
+          - url: "http://wp_app:80"  
+
+
+
+
+tls:
+  stores:
+    default: {}
+  certificates:
+    - certFile: /certs/fullchain.pem
+      keyFile:  /certs/privkey.pem
+
