@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+    POSTGRES_DB: odoo
+    POSTGRES_USER: odoo
+    POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+
+  odoo:
+    image: ghcr.io/<your-org>/odoo-custom:latest
+    depends_on:
+      - db
+    env_file: .env
+    volumes:
+      - odoo-filestore:/var/lib/odoo
+      - ./odoo_addons:/mnt/extra-addons:ro
+    restart: unless-stopped
+    command: ["/entrypoint.sh"]
+
+
+
+volumes:
+db-data:
+odoo-filestore:
