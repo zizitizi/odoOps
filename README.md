@@ -1,10 +1,10 @@
 # odoOps
 
-## Odoo Devops Repository
+### Odoo Devops Repository
 
 this repo implement complete CI/CD pipeline to to auto implemetn odoo in Production environment
 
-## HLD 
+### HLD 
 
 this is complete design pverview
 
@@ -33,7 +33,7 @@ this is complete design pverview
 
 
 
-# how to use
+### how to use
 
 
 
