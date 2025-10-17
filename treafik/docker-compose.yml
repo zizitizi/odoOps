@@ -1,0 +1,35 @@
+services:
+  traefik:
+    image: "traefik:3.5.3"
+    container_name: "traefik"
+    restart: always
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=false"
+      - "--providers.docker=true"
+      - "--providers.file.filename=/etc/traefik/traefik-dynamic.yaml"
+      - "--providers.file.watch=true"
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+      - "--entryPoints.traefik.address=:8080"
+        #  - "--entryPoints.traefik.http=true"
+
+
+
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik-dynamic.yaml:/etc/traefik/traefik-dynamic.yaml"
+      - "/etc/letsencrypt/live/tar-0001/fullchain.pem:/certs/fullchain.pem:ro"
+      - "/etc/letsencrypt/live/tar-0001/privkey.pem:/certs/privkey.pem:ro"
+    networks:
+      - web
+      - wp_net
+
+networks:
+     web:
+     wp_net:
+        external: true
